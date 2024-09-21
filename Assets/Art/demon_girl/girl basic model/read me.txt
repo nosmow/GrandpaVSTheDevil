@@ -1,0 +1,28 @@
+Game ready model. 
+ Rig match humanoid rigging in unity .
+Only test animations .
+
+Clean textures ment for toon shader .
+
+File contains 
+-base body mesh with eyes .(shape keys for clothe noclip, eyes and mouth movement)
+-rig 
+-5 tipes of horns 
+-5 hairstyles
+-5 ears types
+-2 teeth type
+-1 short
+-2 shirts
+-4 dresses
+-1 scurt
+-1 slippers))
+-texture (it is unnesesary big for this model but sometimes low res textures glitch after export ,safety measures)
+
+one hair have ponytail and long hairstyles (rig have bones for it (so dont forget to import them)))
+dresses and scurt rigged to bones out of humanoid rig /
+
+there is no normal way to connect with you and get feedback/so
+if you rate 5 i will make hier quality model of this type with deeper costamithations 
+if 1 that means that i dont have reason to live )
+please buy or i will starve......HELP/
+
