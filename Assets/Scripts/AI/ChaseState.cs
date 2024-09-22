@@ -5,9 +5,9 @@ public class ChaseState : IEnemyState
 {
     public void EnterState(EnemyAI enemy)
     {
-        enemy.agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        /*enemy.agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
         enemy.agent.speed = 3.5f;
-        enemy.agent.acceleration = 4f;
+        enemy.agent.acceleration = 4f;*/
     }
 
     public void UpdateState(EnemyAI enemy)

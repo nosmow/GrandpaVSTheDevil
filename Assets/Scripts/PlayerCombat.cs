@@ -9,6 +9,9 @@ public class PlayerCombat : MonoBehaviour
 
     private Animator animator;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip machete;
+
     [SerializeField] private int hp = 100;
     [SerializeField] private Slider sliderHp;
 
@@ -49,6 +52,7 @@ public class PlayerCombat : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         sliderHp.maxValue = hp;
         sliderHp.value = hp;
@@ -107,7 +111,7 @@ public class PlayerCombat : MonoBehaviour
                 if (controls.GetInputs().Attack.Attack1.triggered)
                 {
                     currentAttack = "BasicAttackPlayer";
-                    ExecuteAnimationAttack(0f);
+                    ExecuteAnimationAttack(0f);  
                     StartCoroutine(StartAttackMele(coldDown));
                 }
                 else if (controls.GetInputs().Attack.Attack2.triggered)
@@ -151,6 +155,7 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator StartAttackMele(float time)
     {
         isAttacking = true;
+        audioSource.PlayOneShot(machete, 0.5f);
         yield return new WaitForSeconds(time);
         isAttacking = false;
     }
@@ -168,6 +173,7 @@ public class PlayerCombat : MonoBehaviour
     {
         isMoveCombo = true;
         yield return new WaitForSeconds(time);
+        audioSource.PlayOneShot(machete, 0.5f);
         isMoveCombo = false;
     }
 
@@ -181,7 +187,7 @@ public class PlayerCombat : MonoBehaviour
     }
 
     private void ExecuteAnimationAttack(float typeAttack)
-    { 
+    {
         animator.SetTrigger("IsAttacking");
         animator.SetFloat("TypeAttack", typeAttack);
         waitingTime = coldDown;

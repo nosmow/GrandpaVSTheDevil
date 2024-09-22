@@ -8,6 +8,7 @@ public class AttackState : IEnemyState
         enemy.agent.isStopped = false;  // Permitir que el enemigo se mueva un poco si es necesario
         // Iniciar animación de ataque o acciones de ataque
         Debug.Log("Iniciando ataque al jugador");
+        enemy.GetComponent<EnemyCombat>().SoundPunch();
     }
 
     public void UpdateState(EnemyAI enemy)
@@ -31,8 +32,9 @@ public class AttackState : IEnemyState
             enemy.transform.LookAt(targetPosition);
 
             enemy.animator.SetTrigger("IsAttack");
-            Debug.Log("Atacando al jugador");
-            // Aquí puedes añadir más lógica de ataque (animación, reducir vida del jugador, etc.)
+            
+            //var enemyCombat = enemy.GetComponent<EnemyCombat>();
+            //enemyCombat.audioSource.PlayOneShot(enemyCombat.GetClipPunch(), 0.5f);
         }
 
     }

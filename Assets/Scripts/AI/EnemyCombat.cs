@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class EnemyCombat : MonoBehaviour
 {
+    public AudioSource audioSource;
+    [SerializeField] private AudioClip punch;
+
     [SerializeField] private int hp = 100;
     [SerializeField] private Slider sliderHp;
     [SerializeField] private int maxHitsBeforeRetreat = 2;
@@ -23,8 +26,8 @@ public class EnemyCombat : MonoBehaviour
         sliderHp.maxValue = hp;
         sliderHp.value = hp;
     
+        audioSource = GetComponent<AudioSource>();
         enemyAI = GetComponent<EnemyAI>();
-
         body = GetComponentInChildren<Enemy>().transform;
     }
 
@@ -49,6 +52,11 @@ public class EnemyCombat : MonoBehaviour
         hp -= damage;
         sliderHp.value = hp;
         enemyAI.animator.SetTrigger("IsHit");
+    }
+
+    public void SoundPunch()
+    {
+        audioSource.PlayOneShot(punch, 1f);
     }
 
     // Method to record player's strokes
@@ -85,6 +93,8 @@ public class EnemyCombat : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         Instantiate(prefabPowerUp, new Vector3(body.position.x, 0.8f, body.position.z), Quaternion.identity);
+        enemyAI.isDead = true;
+        enemyAI.Dead();
         Destroy(gameObject);
     }
 }

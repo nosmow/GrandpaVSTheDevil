@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    public bool isPlayerInRange = false;
+    public bool isDead = false;
+
     private IEnemyState currentState;
     private Transform player;
     [SerializeField] private Transform[] patrolPoints;
@@ -44,9 +47,46 @@ public class EnemyAI : MonoBehaviour
         currentState = new PatrolState();
     }
 
+    private bool DistaceToPlayerInRange()
+    {
+        float distance = Vector3.Distance(player.position, transform.position);
+
+        return distance <= detectionRange && !isPlayerInRange;
+    }
+
+    private bool DistanceToPlayerAfterRange()
+    {
+        float distance = Vector3.Distance(player.position, transform.position);
+
+        return distance > detectionRange && isPlayerInRange;
+    }
+
     private void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
+        if (DistaceToPlayerInRange())
+        {
+            isPlayerInRange = true;
+            AudioManager.Instance.StartCombatSound();
+        }
+        else if (DistanceToPlayerAfterRange())
+        {
+            isPlayerInRange = false;
+            AudioManager.Instance.StartBaseSound();
+        }
+
+
         currentState.UpdateState(this);
+
+    }
+
+    public void Dead()
+    {
+        AudioManager.Instance.StartBaseSound();
     }
 
     public void TransitionToState(IEnemyState newState)
